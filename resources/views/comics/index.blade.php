@@ -32,7 +32,7 @@
                   <form action="{{route('comics.destroy', ['comic' => $comic->id])}}" method="POST">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-danger">Elimina</button>
+                    <button type="submit" class="btn btn-danger" id="delete_btn">Elimina</button>
                   </form>
                 </td>
             </tr>
