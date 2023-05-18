@@ -36,6 +36,17 @@ class ComicController extends Controller
      */
     public function store(Request $request)
     {
+
+        $request->validate([
+            'title' => 'required|max:110',
+            'description'=> 'nullable|max:65535',
+            'thumb' => 'required|max:255',
+            'series'=> 'required|max:50',
+            'type'=>'required|max:50',
+            'price'=>'required|max:10',
+            'sale_date'=>'required',
+        ]);
+
         $data = $request->all();
 
         $newComic = new Comic();
@@ -46,7 +57,7 @@ class ComicController extends Controller
 
         $newComic->save();
 
-        return redirect()->route('comics.show', ['comic' => $newComic->id]);
+        return redirect()->route('comics.show', ['comic' => $newComic->id])->with('status', 'Comic aggiornato');
     }
 
     /**
@@ -83,12 +94,23 @@ class ComicController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        $request->validate([
+            'title' => 'required|max:110',
+            'description'=> 'nullable|max:65535',
+            'thumb' => 'required|max:255',
+            'series'=> 'required|max:50',
+            'type'=>'required|max:50',
+            'price'=>'required|max:10',
+            'sale_date'=>'required',
+        ]);
+
         $comic = Comic::findOrFail($id);
         $data = $request->all();
 
         $comic->update($data);
 
-        return redirect()->route('comics.show', ['comic' => $comic->id]);
+        return redirect()->route('comics.show', ['comic' => $comic->id])->with('status', 'Comic aggiornato');
     }
 
     /**
